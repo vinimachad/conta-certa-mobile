@@ -4,6 +4,7 @@ import { Home } from "../screens/Home";
 
 export type RootStackParamList = {
     Home: undefined;
+    InputName: undefined
 };
 
 export function NavigationFlow() {
