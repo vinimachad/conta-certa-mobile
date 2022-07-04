@@ -14,17 +14,18 @@ export const Container = styled.View`
     flex: 1;
     align-items: center;
     justify-content: center;
-    padding: 0 ${RFValue(50)}px;;
+    padding: 0 ${RFValue(16)}px;;
 `;
 
 export const InputContainer = styled.View`
-    width: ${RFValue(200)}px;
+    width: ${RFValue(300)}px;
     height: ${RFValue(150)}px;
     justify-content: space-between;
     align-items: center;
 `
 
 export const Title = styled.Text`
+    max-width: ${RFValue(200)}px;;
     font-size: ${RFValue(24)}px;
     font-family: ${p => p.theme.fonts.medium};
     color: ${p => p.theme.colors.title};
