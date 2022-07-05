@@ -6,9 +6,10 @@ import {
   Lexend_700Bold
 } from '@expo-google-fonts/lexend'
 import theme from './src/global/styles/theme';
-import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationFlow } from './src/routes';
+import { UserSessionProvider } from './src/hooks/UserSessionContext';
+import AppLoading from 'expo-app-loading';
 
 export default function App() {
 
@@ -24,8 +25,10 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar style='light' />
-      <NavigationFlow />
+      <UserSessionProvider>
+        <StatusBar style='light' />
+        <NavigationFlow />
+      </UserSessionProvider>
     </ThemeProvider>
   );
 }
