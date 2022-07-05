@@ -1,25 +1,20 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useContext, useEffect, useLayoutEffect } from 'react';
+import { useContext, useLayoutEffect } from 'react';
 import { Header } from '../../components/Header';
+import { EmptyView } from '../../components/Placeholders/EmptyView';
 import { UserSessionContext } from '../../hooks/UserSessionContext';
 import { RootStackParamList } from '../../routes';
 import { Container } from './styles';
-
+import Emoji from '../../assets/confused-emoji.svg'
 
 interface DashboardProps {
-}
-
-type Data = {
-  isLoggedIn: boolean
-  name: string
 }
 
 type DashboardScreenProp = StackNavigationProp<RootStackParamList, 'Dashboard'>;
 
 export function Dashboard({ }: DashboardProps) {
 
-  const { userSession } = useContext(UserSessionContext)
   const navigation = useNavigation<DashboardScreenProp>()
 
   useLayoutEffect(() => {
@@ -30,7 +25,7 @@ export function Dashboard({ }: DashboardProps) {
 
   return (
     <Container>
-
+      <EmptyView image={<Emoji />} title='Sem compras ainda' description='Comece a organizar todas suas compras de supermercado em um só lugar' />
     </Container>
   );
 }

@@ -23,5 +23,5 @@ export const Description = styled.Text`
     font-size: ${RFValue(13)}px;
     line-height: ${RFValue(20)}px;
     color: ${p => p.theme.colors.background};
-    max-width: ${RFValue(177)}px;
+    max-width: ${RFValue(187)}px;
 `

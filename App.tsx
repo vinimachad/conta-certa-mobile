@@ -17,7 +17,8 @@ export default function App() {
   const [fonstLoaded] = useFonts({
     Lexend_400Regular,
     Lexend_600SemiBold,
-    Lexend_700Bold
+    Lexend_700Bold,
+    Lexend_300Light
   })
 
   if (!fonstLoaded) {
