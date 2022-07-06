@@ -8,9 +8,11 @@ import { useContext } from 'react';
 import { UserSessionContext } from '../../hooks/UserSessionContext';
 
 interface HeaderProps {
+  onScanButton: () => void
+  hasShopping: boolean
 }
 
-export function Header({ }: HeaderProps) {
+export function Header({ onScanButton, hasShopping }: HeaderProps) {
 
   const { userSession } = useContext(UserSessionContext)
 
@@ -24,7 +26,7 @@ export function Header({ }: HeaderProps) {
         </View>
         <Avatar source={avatarImg} />
       </UserInfoContainer>
-      <StartScanButton />
+      <StartScanButton hasShopping={hasShopping} onScanButton={onScanButton} />
     </Container>
   );
 }
