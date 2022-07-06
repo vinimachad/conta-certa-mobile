@@ -23,7 +23,7 @@ export function Dashboard({ }: DashboardProps) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      header: () => <Header hasShopping={shoppingList.length != 0} onScanButton={() => console.log('click')} />
+      header: () => <Header hasShopping={shoppingList.length != 0} onScanButton={didStartScan} />
     })
   }, [shoppingList])
 
@@ -34,6 +34,10 @@ export function Dashboard({ }: DashboardProps) {
   async function getShopping() {
     let list = await viewModel.shoppingList()
     setShoppingList(list)
+  }
+
+  function didStartScan() {
+    navigation.navigate('Scanner')
   }
 
   return (

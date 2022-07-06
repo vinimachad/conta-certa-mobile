@@ -8,6 +8,7 @@ import { Dashboard } from "../screens/Dashboard";
 import { Done } from "../screens/Done";
 import { Home } from "../screens/Home";
 import { InputName } from "../screens/InputName";
+import { Scanner } from "../screens/Scanner";
 import { UserSessionService } from "../service/UserSession/UserSessionService";
 
 export type RootStackParamList = {
@@ -15,6 +16,7 @@ export type RootStackParamList = {
     InputName: undefined
     Done: undefined
     Dashboard: undefined
+    Scanner: undefined
 };
 
 export function NavigationFlow() {
@@ -39,7 +41,11 @@ export function NavigationFlow() {
             <Stack.Navigator >
                 {
                     userSession.isLoggedIn ?
-                        (<Stack.Screen name="Dashboard" component={Dashboard} />) :
+                        (<>
+                            <Stack.Screen name="Dashboard" component={Dashboard} />
+                            <Stack.Screen name="Scanner" component={Scanner} />
+                        </>)
+                        :
                         (<>
                             <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
                             <Stack.Screen name="InputName" component={InputName} options={{ headerShown: false }} />
