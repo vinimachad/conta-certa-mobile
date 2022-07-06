@@ -27,6 +27,6 @@ export function Header({ onScanButton, hasShopping }: HeaderProps) {
         <Avatar source={avatarImg} />
       </UserInfoContainer>
       <StartScanButton hasShopping={hasShopping} onScanButton={onScanButton} />
-    </Container>
+    </Container >
   );
 }
