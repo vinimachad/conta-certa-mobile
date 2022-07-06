@@ -19,5 +19,6 @@ export default {
         regular: 'Lexend_400Regular',
         medium: 'Lexend_600SemiBold',
         bold: 'Lexend_700Bold',
+        light: 'Lexend_300Light'
     }
 }
