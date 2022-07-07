@@ -13,7 +13,8 @@ export default {
         text_input: '#B1B0B8',
         background: '#ffff',
         weak_gradient: '#FFC380',
-        strong_gradient: '#FF941A'
+        strong_gradient: '#FF941A',
+        stroke: '#E3E3E5'
     },
     fonts: {
         regular: 'Lexend_400Regular',

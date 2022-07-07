@@ -39,7 +39,7 @@ export function Dashboard({ }: DashboardProps) {
   }
 
   async function didStartScan() {
-    navigation.replace('Scanner')
+    navigation.replace('FillData')
   }
 
   return (

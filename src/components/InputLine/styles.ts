@@ -15,5 +15,5 @@ export const Input = styled.TextInput`
 export const Divider = styled.View`
     width: 100%;
     height: ${RFValue(1)}px;;
-    background-color: ${p => p.theme.colors.thirdary};
+    background-color: ${p => p.theme.colors.stroke};
 `

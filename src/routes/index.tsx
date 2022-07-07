@@ -6,6 +6,7 @@ import { useContext, useEffect } from "react";
 import { UserSessionContext } from "../hooks/UserSessionContext";
 import { Dashboard } from "../screens/Dashboard";
 import { Done } from "../screens/Done";
+import { FillData } from "../screens/FillData";
 import { Home } from "../screens/Home";
 import { InputName } from "../screens/InputName";
 import { Scanner } from "../screens/Scanner";
@@ -17,6 +18,7 @@ export type RootStackParamList = {
     Done: undefined
     Dashboard: undefined
     Scanner: undefined
+    FillData: undefined
 };
 
 export function NavigationFlow() {
@@ -44,6 +46,7 @@ export function NavigationFlow() {
                         (<>
                             <Stack.Screen name="Dashboard" component={Dashboard} />
                             <Stack.Screen name="Scanner" component={Scanner} options={{ headerShown: false }} />
+                            <Stack.Screen name="FillData" component={FillData} />
                         </>)
                         :
                         (<>
