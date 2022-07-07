@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { EmptyView } from '../../components/Placeholders/EmptyView';
 import { RootStackParamList } from '../../routes';
@@ -9,6 +9,7 @@ import Emoji from '../../assets/confused-emoji.svg'
 import { ViewModel } from './viewModel';
 import { MyShopping } from './MyShopping';
 import { Shopping } from '../../database/models/Shopping';
+import { OrientationLock, lockAsync } from 'expo-screen-orientation';
 
 interface DashboardProps {
 }
@@ -33,11 +34,12 @@ export function Dashboard({ }: DashboardProps) {
 
   async function getShopping() {
     let list = await viewModel.shoppingList()
+    await lockAsync(OrientationLock.PORTRAIT_UP)
     setShoppingList(list)
   }
 
-  function didStartScan() {
-    navigation.navigate('Scanner')
+  async function didStartScan() {
+    navigation.replace('Scanner')
   }
 
   return (
