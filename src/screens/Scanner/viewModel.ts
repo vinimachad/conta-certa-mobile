@@ -16,7 +16,8 @@ export class ViewModel {
         }
     }
 
-    async changeScreenOrientation() {
-        await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+    async changeScreenOrientation(onOrientationChanged: (isChanged: boolean) => void) {
+        await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
+        onOrientationChanged(true)
     }
 }

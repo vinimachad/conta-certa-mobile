@@ -7,6 +7,7 @@ import { BackButton } from '../../components/BackButton';
 import { ViewModel } from './viewModel';
 import { Text, View } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner'
+import { CartButton } from '../../components/CartButton';
 
 interface ScannerProps {
 }
@@ -18,11 +19,14 @@ export function Scanner({ }: ScannerProps) {
   const navigation = useNavigation<ScannerScreenProp>()
   const [hasPermission, setHasPermission] = useState(null);
   const [isScanned, setScanned] = useState(false);
+  const [orientationChanged, setOrientationChanged] = useState(false)
 
   const viewModel = new ViewModel()
 
   useEffect(() => {
-    viewModel.changeScreenOrientation()
+    viewModel.changeScreenOrientation(isChanged => {
+      setOrientationChanged(isChanged)
+    })
   }, [])
 
   function didComeBackFillData() {
@@ -38,7 +42,6 @@ export function Scanner({ }: ScannerProps) {
   })
 
   function didScanned(data: any) {
-    console.log("->", data)
     setScanned(true)
   }
 
@@ -49,9 +52,15 @@ export function Scanner({ }: ScannerProps) {
         <HeaderScanner >
           <BackButton onTapButton={didComeBackFillData} color={'#FFFF'} />
           <Title children={'Escaneie o código de barras do produto'} />
-          <View />
+          <CartButton onTapButton={() => { }} />
         </HeaderScanner>
-        <BarCodeScanner style={{ flex: 2, backgroundColor: 'red' }} onBarCodeScanned={isScanned ? undefined : data => didScanned(data)} />
+        {
+          orientationChanged ?
+            (<BarCodeScanner
+              style={{ flex: 2 }}
+              onBarCodeScanned={isScanned ? undefined : data => didScanned(data)}
+            />) : (<></>)
+        }
         <BottomScanner>
           <View style={{ height: 64, width: '100%', backgroundColor: 'black' }} />
           <InsertCodeButton>

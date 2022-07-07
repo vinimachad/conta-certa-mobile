@@ -1,4 +1,3 @@
-import ArrowBack from '../../assets/arrow-back.svg'
 import { Container } from './styles';
 import { Feather } from '@expo/vector-icons';
 
@@ -10,7 +9,7 @@ interface BackButtonProps {
 export function BackButton({ onTapButton, color }: BackButtonProps) {
   return (
     <Container onPress={onTapButton}>
-      <Feather name="arrow-left" size={24} color={color} />
+      <Feather name="arrow-left" size={32} color={color} />
     </Container>
   );
 }
