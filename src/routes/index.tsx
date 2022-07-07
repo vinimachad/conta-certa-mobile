@@ -43,7 +43,7 @@ export function NavigationFlow() {
                     userSession.isLoggedIn ?
                         (<>
                             <Stack.Screen name="Dashboard" component={Dashboard} />
-                            <Stack.Screen name="Scanner" component={Scanner} />
+                            <Stack.Screen name="Scanner" component={Scanner} options={{ headerShown: false }} />
                         </>)
                         :
                         (<>
