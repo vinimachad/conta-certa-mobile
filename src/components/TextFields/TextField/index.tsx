@@ -9,7 +9,7 @@ export interface TextFieldProps extends TextInputProps {
   mask?: "currency" | 'none'
 }
 
-export function TextField({ icon, mask, placeholder, inputMaskChange, keyboardType, value }: TextFieldProps) {
+export function TextField({ icon, mask, placeholder, inputMaskChange, keyboardType, value, onChangeText }: TextFieldProps) {
 
   function handleChange(text: string) {
     if (mask === "currency") {
@@ -24,7 +24,7 @@ export function TextField({ icon, mask, placeholder, inputMaskChange, keyboardTy
       <Input
         placeholder={placeholder}
         keyboardType={keyboardType}
-        onChangeText={handleChange}
+        onChangeText={ mask === 'none' ? onChangeText : handleChange}
         value={value}
       />
     </Container>

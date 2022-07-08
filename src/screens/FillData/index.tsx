@@ -20,7 +20,6 @@ type ShoppingData = {
 
 export function FillData() {
 
-  const viewModel: IViewModel = new ViewModel()
   const navigation = useNavigation<ScreenProps>()
   const [shoppingData, setShoppingData] = useState<ShoppingData>({ groceryName: '', walletValue: '' })
 
@@ -32,30 +31,16 @@ export function FillData() {
     })
   })
 
-  useEffect(() => {
-  }, [])
-
   function registerForm() {
     navigation.push('Scanner')
   }
-
-  function formatWalletValueToCurrency(value: number): string {
-    return Helper.INSTANCE.numberFormatToCurrency(value)
-  }
-
-  // function removeCurrency(walletValue: string) {
-  //   let valueWithoutRealSign = walletValue.replace('R$', '')
-  //   let formattedValue = Number(valueWithoutRealSign.replace(',', '.'))
-  //   console.log(formattedValue)
-  //   setShoppingData({ ...shoppingData, walletValue: formattedValue })
-  //   console.log(shoppingData)
-  // }
 
   return (
     <Container>
       <ContentContainer>
         <Title children={'Preencha os dados da compra'} />
         <TextField
+          mask='none'
           placeholder={'Nome do mercado'}
           icon={<MaterialCommunityIcons name='map-marker-radius' size={RFValue(24)} color={theme.colors.primary} />}
           onChangeText={groceryName => setShoppingData({ ...shoppingData, groceryName })}
@@ -64,15 +49,15 @@ export function FillData() {
           mask={'currency'}
           placeholder={'Quanto pretende gastar'}
           icon={<MaterialCommunityIcons name='wallet' size={RFValue(24)} color={theme.colors.primary} />}
-          inputMaskChange={walletValue => setShoppingData({ ...shoppingData, walletValue })}
-          value={shoppingData.walletValue != undefined ? shoppingData.walletValue : ''}
+          inputMaskChange={walletValue => setShoppingData({ ...shoppingData, walletValue })
+          }
+          value={shoppingData.walletValue != '' ? `R$ ${shoppingData.walletValue}` : ''}
           keyboardType={'decimal-pad'}
         />
       </ContentContainer>
       <Button title='Iniciar'
         onTapButton={registerForm}
-        // isActive={shoppingData.groceryName.length != 0 && shoppingData.walletValue != undefined}
-        isActive={true}
+        isActive={shoppingData.groceryName != '' && shoppingData.walletValue != ''}
       />
     </Container>
   );
