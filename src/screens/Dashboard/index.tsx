@@ -1,6 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { EmptyView } from '../../components/Placeholders/EmptyView';
 import { RootStackParamList } from '../../routes';
@@ -28,9 +28,9 @@ export function Dashboard({ }: DashboardProps) {
     })
   }, [shoppingList])
 
-  useEffect(() => {
+  useFocusEffect(() => {
     getShopping()
-  }, [])
+  })
 
   async function getShopping() {
     let list = await viewModel.shoppingList()

@@ -2,15 +2,14 @@ import { Container, ContentContainer, Title } from './styles';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import theme from '../../global/styles/theme';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { useEffect, useLayoutEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useLayoutEffect, useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../routes';
 import { BackButton } from '../../components/BackButton';
 import { Button } from '../../components/Button';
-import { ViewModel, IViewModel } from './viewModel';
 import { TextField } from '../../components/TextFields/TextField';
-import { Helper } from '../../helper';
+import { lockAsync, OrientationLock } from 'expo-screen-orientation';
 
 type ScreenProps = StackNavigationProp<RootStackParamList, 'FillData'>
 type ShoppingData = {
@@ -30,6 +29,14 @@ export function FillData() {
       headerShadowVisible: false
     })
   })
+
+  useFocusEffect(() => {
+    didChangeScreenOrientation()
+  })
+
+  async function didChangeScreenOrientation() {
+    await lockAsync(OrientationLock.PORTRAIT_UP)
+  }
 
   function registerForm() {
     navigation.push('Scanner')

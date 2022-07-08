@@ -1,8 +1,8 @@
 import { BottomScanner, Container, HeaderScanner, InsertCodeButton, SafeArea, ScannerContentContainer, TextButton, Title } from './styles';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../routes';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { BackButton } from '../../components/BackButton';
 import { ViewModel } from './viewModel';
 import { Text, View } from 'react-native';
@@ -23,14 +23,14 @@ export function Scanner({ }: ScannerProps) {
 
   const viewModel = new ViewModel()
 
-  useEffect(() => {
+  useFocusEffect(() => {
     viewModel.changeScreenOrientation(isChanged => {
       setOrientationChanged(isChanged)
     })
-  }, [])
+  })
 
   function didComeBackFillData() {
-    navigation.replace('Dashboard')
+    navigation.pop()
   }
 
   viewModel.requestCameraPermission().then((status) => {
