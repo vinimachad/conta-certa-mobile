@@ -12,9 +12,13 @@ export const Container = styled.View`
 `;
 
 export const Input = styled.TextInput`
+    width: 100%;
     border-left-width: 1px;
     border-color: ${p => p.theme.colors.stroke};
     height: ${RFValue(56)}px;
     padding: 0 ${RFValue(16)}px;
     margin-left: ${RFValue(16)}px;
+    color: ${p => p.theme.colors.text_input};
+    font-size: ${RFValue(15)}px;
+    font-family: ${p => p.theme.fonts.light};
 `

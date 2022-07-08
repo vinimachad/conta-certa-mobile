@@ -1,16 +1,32 @@
 import { ReactElement } from 'react';
+import { TextInputProps } from 'react-native';
+import { maskCurrency } from '../../../helper/utils/masks';
 import { Container, Input } from './styles';
 
-interface TextFieldProps {
+export interface TextFieldProps extends TextInputProps {
   icon: ReactElement
-  placehoder: string
+  inputMaskChange?: (value: string) => void
+  mask?: "currency" | 'none'
 }
 
-export function TextField({ icon, placehoder }: TextFieldProps) {
+export function TextField({ icon, mask, placeholder, inputMaskChange, keyboardType, value }: TextFieldProps) {
+
+  function handleChange(text: string) {
+    if (mask === "currency") {
+      const value = maskCurrency(text);
+      inputMaskChange(value);
+    }
+  }
+
   return (
     <Container>
       {icon}
-      <Input placeholder={placehoder} />
+      <Input
+        placeholder={placeholder}
+        keyboardType={keyboardType}
+        onChangeText={handleChange}
+        value={value}
+      />
     </Container>
   );
 }
