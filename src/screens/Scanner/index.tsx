@@ -8,6 +8,7 @@ import { ViewModel } from './viewModel';
 import { Text, View } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import { CartButton } from '../../components/CartButton';
+import { OrientationLock } from 'expo-screen-orientation';
 
 interface ScannerProps {
 }
@@ -17,20 +18,24 @@ type ScannerScreenProp = StackNavigationProp<RootStackParamList, 'Scanner'>;
 export function Scanner({ }: ScannerProps) {
 
   const navigation = useNavigation<ScannerScreenProp>()
-  const [hasPermission, setHasPermission] = useState(null);
+  const [hasPermission, setHasPermission] = useState(false);
   const [isScanned, setScanned] = useState(false);
   const [orientationChanged, setOrientationChanged] = useState(false)
 
   const viewModel = new ViewModel()
 
   useFocusEffect(() => {
-    viewModel.changeScreenOrientation(isChanged => {
+    viewModel.changeScreenOrientation(OrientationLock.LANDSCAPE_RIGHT, isChanged => {
       setOrientationChanged(isChanged)
     })
   })
 
   function didComeBackFillData() {
-    navigation.pop()
+    viewModel.changeScreenOrientation(OrientationLock.PORTRAIT_UP, () => {
+      setTimeout(() => {
+        navigation.pop()
+      }, 50)
+    })
   }
 
   viewModel.requestCameraPermission().then((status) => {
@@ -47,27 +52,32 @@ export function Scanner({ }: ScannerProps) {
 
   return (
     <Container>
+      {
+        hasPermission ? (
+          <ScannerContentContainer >
+            <HeaderScanner >
+              <BackButton onTapButton={didComeBackFillData} color={'#FFFF'} />
+              <Title children={'Escaneie o código de barras do produto'} />
+              <CartButton onTapButton={() => { }} />
+            </HeaderScanner>
+            {
+              orientationChanged ?
+                (<BarCodeScanner
+                  style={{ flex: 2 }}
+                  onBarCodeScanned={isScanned ? undefined : data => didScanned(data)}
+                />) : (<></>)
+            }
+            <BottomScanner>
+              <View style={{ height: 64, width: '100%', backgroundColor: 'black' }} />
+              <InsertCodeButton>
+                <TextButton children={'Insira o código do produto'} />
+              </InsertCodeButton>
+            </BottomScanner>
+          </ScannerContentContainer>
+        ) : (<></>)
+      }
       <SafeArea />
-      <ScannerContentContainer >
-        <HeaderScanner >
-          <BackButton onTapButton={didComeBackFillData} color={'#FFFF'} />
-          <Title children={'Escaneie o código de barras do produto'} />
-          <CartButton onTapButton={() => { }} />
-        </HeaderScanner>
-        {
-          orientationChanged ?
-            (<BarCodeScanner
-              style={{ flex: 2 }}
-              onBarCodeScanned={isScanned ? undefined : data => didScanned(data)}
-            />) : (<></>)
-        }
-        <BottomScanner>
-          <View style={{ height: 64, width: '100%', backgroundColor: 'black' }} />
-          <InsertCodeButton>
-            <TextButton children={'Insira o código do produto'} />
-          </InsertCodeButton>
-        </BottomScanner>
-      </ScannerContentContainer>
+
     </Container>
   );
 }
